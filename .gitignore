@@ -15,6 +15,7 @@
 
 # IntelliJ
 out/
+dist
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
