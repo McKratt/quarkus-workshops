@@ -15,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+//TODO rewrite this extension with figlet
 public class BannerProcessor {
 
     @BuildStep

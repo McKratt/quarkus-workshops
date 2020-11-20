@@ -4,6 +4,8 @@ package io.quarkus.workshop.superheroes.fight;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.workshop.superheroes.fight.client.Hero;
+import io.quarkus.workshop.superheroes.fight.client.MockHeroService;
+import io.quarkus.workshop.superheroes.fight.client.MockVillainService;
 import io.quarkus.workshop.superheroes.fight.client.Villain;
 import io.restassured.common.mapper.TypeRef;
 import org.hamcrest.core.Is;
@@ -13,12 +15,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 import java.util.List;
-
 import java.util.Random;
-// tag::adocRandom[]
-import io.quarkus.workshop.superheroes.fight.client.MockHeroService;
-import io.quarkus.workshop.superheroes.fight.client.MockVillainService;
-// end::adocRandom[]
+
 import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
 import static javax.ws.rs.core.HttpHeaders.ACCEPT;
@@ -30,13 +28,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
-
-
 @QuarkusTest
 @QuarkusTestResource(DatabaseResource.class)
 @QuarkusTestResource(KafkaResource.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class FightResourceTest {
+class FightResourceTest {
 
     private static final String DEFAULT_WINNER_NAME = "Super Baguette";
     private static final String DEFAULT_WINNER_PICTURE = "super_baguette.png";
@@ -46,7 +42,6 @@ public class FightResourceTest {
     private static final int DEFAULT_LOSER_LEVEL = 6;
 
     private static final int NB_FIGHTS = 10;
-    private static String fightId;
 
     @Test
     void shouldPingOpenAPI() {
@@ -95,7 +90,7 @@ public class FightResourceTest {
     // end::adocMetrics[]
 
     @Test
-    public void testHelloEndpoint() {
+    void testHelloEndpoint() {
         given()
             .when().get("/api/fights/hello")
             .then()
@@ -173,7 +168,7 @@ public class FightResourceTest {
         fighters.hero = hero;
         fighters.villain = villain;
 
-        fightId = given()
+        String fightId = given()
             .body(fighters)
             .header(CONTENT_TYPE, APPLICATION_JSON)
             .header(ACCEPT, APPLICATION_JSON)

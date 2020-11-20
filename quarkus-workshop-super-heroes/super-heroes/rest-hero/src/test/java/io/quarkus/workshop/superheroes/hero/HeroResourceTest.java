@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @QuarkusTest
 @QuarkusTestResource(DatabaseResource.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class HeroResourceTest {
+class HeroResourceTest {
 
     private static final String DEFAULT_NAME = "Super Baguette";
     private static final String UPDATED_NAME = "Super Baguette (updated)";
@@ -92,7 +92,7 @@ public class HeroResourceTest {
     // end::adocMetrics[]
 
     @Test
-    public void testHelloEndpoint() {
+    void testHelloEndpoint() {
         given()
             .when().get("/api/heroes/hello")
             .then()
